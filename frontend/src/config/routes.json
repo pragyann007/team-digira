@@ -1,0 +1,58 @@
+[
+  {
+    "id": "home",
+    "label": "Home",
+    "path": "/",
+    "roles": ["guest", "admin", "user", "rescuer"],
+    "component": "Home",
+    "hideFromSidebar": true
+  },
+  {
+    "id": "login",
+    "label": "Login",
+    "path": "/login",
+    "roles": ["guest", "admin", "user", "rescuer"],
+    "component": "Login",
+    "hideFromSidebar": true
+  },
+  {
+    "id": "admin",
+    "label": "Admin Panel",
+    "path": "/app/dashboard/admin",
+    "roles": ["admin"],
+    "icon": "shield",
+    "order": 2,
+    "component": "AdminHome",
+    "group": "Admin",
+    "children": [
+      {
+        "id": "admin-users",
+        "label": "Users",
+        "path": "/app/dashboard/admin",
+        "roles": ["admin"],
+        "component": "AdminUsers",
+        "order": 1
+      }
+    ]
+  },
+  {
+    "id": "user",
+    "label": "User Profile",
+    "path": "/app/dashboard/user",
+    "roles": ["user"],
+    "icon": "person",
+    "order": 2,
+    "component": "UserHome",
+    "group": "User"
+  },
+  {
+    "id": "rescuer",
+    "label": "Rescuer",
+    "path": "/app/dashboard/rescuer",
+    "roles": ["rescuer"],
+    "icon": "ambulance",
+    "order": 2,
+    "component": "RescuerHome",
+    "group": "Rescuer"
+  }
+]
