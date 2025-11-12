@@ -87,7 +87,7 @@ login = async (req,res)=>{
         expiresIn:"7d"
     })
 
-    res.cookie(token,token);
+    res.cookie("token",token);
 
     return res.status(200).json({message:"Login sucessfull .."})
 
