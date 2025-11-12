@@ -14,7 +14,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 
-export default function SideBar() {
+export default function SideBarAdmin() {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -30,12 +30,12 @@ export default function SideBar() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Building Your Application
+                    Admin Panel
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  {/* <BreadcrumbPage>Data Fetching</BreadcrumbPage> */}
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

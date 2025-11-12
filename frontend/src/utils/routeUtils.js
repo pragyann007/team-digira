@@ -21,3 +21,10 @@ export const getRouteByPath = (path) => {
   }
   return null;
 };
+
+export const findDefaultRoute = (role) => {
+  const route = routes.find(
+    (route) => route.roles.includes(role) && route.isDefault === true
+  );
+  return route ? route.path : "/";
+};

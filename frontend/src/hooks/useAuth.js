@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 export const useAuth = () => {
   const mockAuth = {
     token: "mock-token",
-    user: { id: 1, role: "admin", name: "Divya" },
+    user: { id: 1, role: "user", name: "Divya" },
     authReady: true,
   };
 
