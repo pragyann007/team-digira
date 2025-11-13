@@ -33,27 +33,27 @@ const mockStats = {
   completedToday: 5,
   responseRate: "98.5%",
 };
-const mockActivites = [
-    {
-        id: 1,
-        user : "Hari Bahadur Khatri" ,
-        action : "requested a rescue" , 
-        time : " 10 mins ago" ,
-        status : "pending" ,
-        badge : "urgent case" ,
-    },
-    {
-        id : 2,
-        user: "Shiva Regmi" ,
-        action: "Completed a rescue" ,
-        time: " 30 mins ago" ,
-        status : "completed" ,
-        badge : "Serious injury" ,
 
-    },
-    {
+const mockActivities = [
+  {
+    id: 1,
+    user: "Hari Bahadur Khatri",
+    action: "Requested rescue of a Dog with fractured leg",
+    time: "2 min ago",
+    status: "pending",
+    badge: "urgent",
+  },
+  {
+    id: 2,
+    user: "Dal Babu Basnet",
+    action: "Rescued a cat left on Road",
+    time: "5 min ago",
+    status: "completed",
+    badge: "success",
+  },
+  {
     id: 3,
-    user: "Avaya's NGO",
+    user: "Shiva Regmi's NGO",
     action: "Rescuer joined platform",
     time: "12 min ago",
     status: "new",
@@ -67,12 +67,12 @@ const mockActivites = [
     status: "pending",
     badge: "warning",
   },
-
 ];
-const mockRescuers =[
-    {
+
+const mockRescuers = [
+  {
     id: 1,
-    name: "Shiva Regmi's NGOO",
+    name: "Shiva Regmi's NGO",
     status: "online",
     location: "Lainchaur, Kathmandu",
   },
@@ -86,7 +86,7 @@ const mockRescuers =[
     id: 3,
     name: "Pragyann Thapaliya's NGO",
     status: "offline",
-    location: "ThapaThali, Kathmandu",
+    location: "Thali, Kathmandu",
   },
 ];
 
@@ -200,7 +200,7 @@ export default function Admin() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="``bg-gradient-to-br`` from-blue-50 to-blue-100 border-blue-200">
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-blue-900">
               Total Users
@@ -215,7 +215,7 @@ export default function Admin() {
           </CardContent>
         </Card>
 
-        <Card className="``bg-gradient-to-br`` from-green-50 to-green-100 border-green-200">
+        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-green-900">
               Active Rescuers
@@ -230,7 +230,7 @@ export default function Admin() {
           </CardContent>
         </Card>
 
-        <Card className="bg-linear-to-br from-yellow-50 to-yellow-100 border-yellow-200">
+        <Card className="bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-yellow-900">
               Pending Requests
@@ -245,7 +245,7 @@ export default function Admin() {
           </CardContent>
         </Card>
 
-        <Card className="``bg-gradient-to-br`` from-purple-50 to-purple-100 border-purple-200">
+        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-purple-900">
               Response Rate

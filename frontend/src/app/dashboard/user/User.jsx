@@ -311,7 +311,7 @@ export default function User() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Card className="`bg-linear-to-br` from-blue-50 to-blue-100 border-blue-200">
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-blue-900">
               Active Requests
@@ -326,7 +326,7 @@ export default function User() {
           </CardContent>
         </Card>
 
-        <Card className="`bg-linear-to-br` from-green-50 to-green-100 border-green-200">
+        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-green-900">
               Completed
@@ -341,7 +341,7 @@ export default function User() {
           </CardContent>
         </Card>
 
-        <Card className="`bg-linear-to-br` from-purple-50 to-purple-100 border-purple-200">
+        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-purple-900">
               Total Requests
@@ -356,7 +356,7 @@ export default function User() {
           </CardContent>
         </Card>
 
-        <Card className="`bg-linear-to-br` from-orange-50 to-orange-100 border-orange-200">
+        <Card className="bg-gradient-to-br from-orange-50 to-orange-100 border-orange-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-orange-900">
               Rate & Review

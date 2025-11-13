@@ -1,14 +1,10 @@
-  
-  
-import {Card , CardContent , CardDescription ,Cardheader, CardTitle} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
-  
-export default function Contacts(){
 
-return (
-  
-  <div className="space-y-6">
+export default function Contacts() {
+  return (
+    <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Emergency Contacts</h1>
         <p className="text-muted-foreground">Important numbers for immediate help</p>

@@ -10,12 +10,12 @@ export default function Chat() {
       </div>
       <Card>
         <CardHeader>
-          <CardTitle>Rescuer's Chat</CardTitle>
-          <CardDescription>R-T communication with your team</CardDescription>
+          <CardTitle>Rescuer Team Chat</CardTitle>
+          <CardDescription>Real-time communication with your team</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="text-center py-8 text-muted-foreground">
-            Chat interface integrated here
+            Chat interface will be integrated here
           </div>
         </CardContent>
       </Card>

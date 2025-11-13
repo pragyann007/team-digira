@@ -4,7 +4,14 @@ import { logout as logoutAction } from '../store/slices/authSlice';
 export const useAuth = () => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const mockAuth = {token: "mock-token", user: { id: 1, role: "user", name: "Divya Darsheel Sharma" }, isLoading: false, error: null, isAuthenticated: true,};
+
+  const mockAuth = {
+    token: "mock-token",
+    user: { id: 1, role: "user", name: "Divya Darsheel Sharma" },
+    isLoading: false,
+    error: null,
+    isAuthenticated: true,
+  };
   const currentAuth = auth.user ? auth : mockAuth;
 
   return {
@@ -14,4 +21,4 @@ export const useAuth = () => {
     isUser: currentAuth.user?.role === 'user',
     isRescuer: currentAuth.user?.role === 'rescuer',
   };
-}
+};

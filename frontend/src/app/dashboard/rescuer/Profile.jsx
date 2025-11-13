@@ -13,7 +13,7 @@ export default function Profile() {
       <Card>
         <CardHeader>
           <CardTitle>Profile Information</CardTitle>
-          <CardDescription>Update you rescuer details</CardDescription>
+          <CardDescription>Update your rescuer details</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
@@ -21,11 +21,11 @@ export default function Profile() {
             <Input id="name" defaultValue="John Rescuer" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="specialty">Expertee</Label>
+            <Label htmlFor="specialty">Specialty</Label>
             <Input id="specialty" defaultValue="Medical Aid, Food Distribution" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="location">initial Location</Label>
+            <Label htmlFor="location">Base Location</Label>
             <Input id="location" defaultValue="South Delhi" />
           </div>
           <Button>Update Profile</Button>

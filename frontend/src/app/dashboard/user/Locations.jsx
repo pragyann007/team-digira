@@ -16,13 +16,13 @@ export default function Locations() {
             <CardDescription>Your saved addresses</CardDescription>
           </div>
           <Button size="sm">
-            <Plus className="mr-2 h-5 w-4" />
-            Add the Location
+            <Plus className="mr-2 h-4 w-4" />
+            Add Location
           </Button>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-4 border  rounded-lg">
+            <div className="flex items-center gap-3 p-4 border rounded-lg">
               <MapPin className="h-5 w-5 text-primary" />
               <div>
                 <p className="font-medium">Home</p>

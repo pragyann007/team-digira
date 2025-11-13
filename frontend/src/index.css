@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import 'leaflet/dist/leaflet.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -118,6 +119,9 @@
     @apply bg-background text-foreground;
   }
 }
-html {
-  scroll-behavior: smooth;
+
+.leaflet-container {
+  height: 300px;
+  width: 100%;
+  border-radius: 8px;
 }

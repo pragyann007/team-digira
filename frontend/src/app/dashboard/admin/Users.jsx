@@ -1,6 +1,7 @@
-import {Card, CardContent ,CardDescription , Cardheader, CardTitle} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
-import {Table} from "@/components/ui/table";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
 export default function Users() {
   return (
     <div className="space-y-6">
