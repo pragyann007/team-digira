@@ -17,14 +17,14 @@ export default function History() {
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div>
-                <p className="font-medium">Medical Aid - Lajpat Nagar</p>
+                <p className="font-medium">Cat Rescue - Gongabu</p>
                 <p className="text-sm text-muted-foreground">Completed 2 days ago</p>
               </div>
               <Badge className="bg-green-100 text-green-800">Completed</Badge>
             </div>
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div>
-                <p className="font-medium">Clothing - Paharganj</p>
+                <p className="font-medium">Death of Stray Dog - Paknajol</p>
                 <p className="text-sm text-muted-foreground">Completed 3 days ago</p>
               </div>
               <Badge className="bg-green-100 text-green-800">Completed</Badge>

@@ -17,14 +17,14 @@ export default function Requests() {
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div>
-                <p className="font-medium">Medical Aid - Connaught Place</p>
+                <p className="font-medium">Dog Rescue - Sorkhutte</p>
                 <p className="text-sm text-muted-foreground">Submitted 2 hours ago</p>
               </div>
               <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>
             </div>
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div>
-                <p className="font-medium">Food & Shelter - Karol Bagh</p>
+                <p className="font-medium">Accident of Cow - Samakhushi</p>
                 <p className="text-sm text-muted-foreground">Submitted 5 hours ago</p>
               </div>
               <Badge className="bg-blue-100 text-blue-800">In Progress</Badge>

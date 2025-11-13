@@ -62,36 +62,36 @@ const mockStats = {
 
 const mockRequests = [
   {
-    id: "#REQ-2024-001",
-    type: "Medical Aid",
-    location: "Connaught Place, Delhi",
+    id: "#REQ-2025-001",
+    type: "Dog Rescue",
+    location: "Sorhakhutte, Kathmandu",
     status: "in-progress",
-    assignedTo: "Rajesh Mehta",
+    assignedTo: "Rajesh Babu Shrestha",
     created: "2 hours ago",
     priority: "high",
   },
   {
-    id: "#REQ-2024-002",
-    type: "Food & Shelter",
-    location: "Karol Bagh, Delhi",
+    id: "#REQ-2025-002",
+    type: "Accident of Cow",
+    location: "Samakhushi, Kathmandu",
     status: "pending",
-    assignedTo: "Not yet assigned",
+    assignedTo: "TBD",
     created: "5 hours ago",
     priority: "medium",
   },
   {
-    id: "#REQ-2024-003",
-    type: "Medical Aid",
-    location: "Lajpat Nagar, Delhi",
+    id: "#REQ-2025-003",
+    type: "Cat Rescue",
+    location: "Gongabu, Kathmandu",
     status: "completed",
-    assignedTo: "Anita Desai",
+    assignedTo: "Anita Basnet",
     created: "2 days ago",
     priority: "urgent",
   },
   {
-    id: "#REQ-2024-004",
-    type: "Clothing",
-    location: "Paharganj, Delhi",
+    id: "#REQ-2025-004",
+    type: "Death of Stray Dog",
+    location: "Paknajol, Kathmandu",
     status: "completed",
     assignedTo: "Sanjay Gupta",
     created: "3 days ago",
@@ -138,11 +138,9 @@ export default function User() {
       setShowNewRequest(false);
       setIsSubmitting(false);
 
-      // Update stats
       mockStats.activeRequests += 1;
       mockStats.totalRequests += 1;
 
-      // Clear form
       setRequestType("");
       setLocation("");
       setDescription("");

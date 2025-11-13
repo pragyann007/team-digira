@@ -17,8 +17,8 @@ export default function Contacts() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div>
-              <p className="font-medium">Police</p>
-              <p className="text-sm text-muted-foreground">Emergency police services</p>
+              <p className="font-medium">NGO 1</p>
+              {/* <p className="text-sm text-muted-foreground">Emergency police services</p> */}
             </div>
             <Button variant="outline" onClick={() => window.location.href = 'tel:100'}>
               <Phone className="mr-2 h-4 w-4" />
@@ -27,8 +27,8 @@ export default function Contacts() {
           </div>
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div>
-              <p className="font-medium">Ambulance</p>
-              <p className="text-sm text-muted-foreground">Medical emergency</p>
+              <p className="font-medium">NGO 2 </p>
+              {/* <p className="text-sm text-muted-foreground">Medical emergency</p> */}
             </div>
             <Button variant="outline" onClick={() => window.location.href = 'tel:102'}>
               <Phone className="mr-2 h-4 w-4" />
@@ -37,8 +37,8 @@ export default function Contacts() {
           </div>
           <div className="flex items-center justify-between p-4 border rounded-lg">
             <div>
-              <p className="font-medium">Fire Department</p>
-              <p className="text-sm text-muted-foreground">Fire emergency</p>
+              <p className="font-medium">NGO 3</p>
+              {/* <p className="text-sm text-muted-foreground">Fire emergency</p> */}
             </div>
             <Button variant="outline" onClick={() => window.location.href = 'tel:101'}>
               <Phone className="mr-2 h-4 w-4" />
