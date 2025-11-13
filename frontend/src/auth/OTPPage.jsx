@@ -1,20 +1,18 @@
-import React from "react";
-import { UserSignupForm } from "@/components/UserSignupForm";
+import { GalleryVerticalEnd } from "lucide-react";
+import { OTPForm } from "@/components/otp-form";
 
-const RegisterUser = () => {
+export default function OTPPage() {
   return (
     <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-      <div className="flex w-full max-w-sm flex-col gap-6">
+      <div className="flex w-full max-w-xs flex-col gap-6">
         <a href="/" className="flex items-center gap-2 self-center font-medium">
           <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-            <span className="text-xs font-bold">SS</span>
+            <GalleryVerticalEnd className="size-4" />
           </div>
           Street साथी
         </a>
-        <UserSignupForm />
+        <OTPForm />
       </div>
     </div>
   );
-};
-
-export default RegisterUser;
+}

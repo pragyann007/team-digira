@@ -26,6 +26,7 @@ import Landing from "./pages/home";
 import Login from "./auth/Login";
 import RegisterUser from "./auth/RegisterUser";
 import RegisterRescuer from "./auth/RegisterRescuer";
+import OTPPage from "./auth/OTPPage";
 import "./App.css";
 
 function RoleRedirect() {
@@ -40,6 +41,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/registerUser" element={<RegisterUser />} />
       <Route path="/registerRescuer" element={<RegisterRescuer />} />
+      <Route path="/verify-otp" element={<OTPPage />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<RoleRedirect />} />
