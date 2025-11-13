@@ -85,17 +85,12 @@ const Landing = () => {
         </nav>
 
         <section className="pt-24 pb-20 px-4">
-          {/* <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 `bg-gradient-to-br` from-lime-50 via-white to-lime-50" />
-          <div className="absolute top-20 left-10 w-72 h-72 bg-lime-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-lime-400/10 rounded-full blur-3xl" />
-        </div> */}
           <div className="max-w-7xl mx-auto">
             <div className="text-center">
-              <div className="inline-flex items-center space-x-2 bg-lime-100 text-lime-700 px-4 py-2 rounded-full mb-6 text-sm font-medium">
+              {/* <div className="inline-flex items-center space-x-2 bg-lime-100 text-lime-700 px-4 py-2 rounded-full mb-6 text-sm font-medium">
                 <Heart className="w-4 h-4" />
                 <span>Saving Lives, One Paw at a Time</span>
-              </div>
+              </div> */}
 
               <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
                 Every Streets
@@ -290,19 +285,6 @@ const Landing = () => {
           </div>
         </section>
       </div>
-      <footer className="bg-gray-900  text-white py-1 px-4 w-full rounded-2xl">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-2 mb-6">
-            <span className="text-2xl font-bold">
-              <span className="text-white">Street</span>
-              <span className="text-lime-500">साथी</span>
-            </span>
-          </div>
-          <p className="text-gray-400 mb-6">
-            Saving lives, one animal at a time. Together we make a difference.
-          </p>
-        </div>
-      </footer>
       <br />
       <p className="text-gray-500 text-sm">
         © 2025 StreetSathi. All rights reserved.
