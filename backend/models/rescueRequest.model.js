@@ -39,7 +39,7 @@ const rescueReportSchema = new mongoose.Schema({
     status:{
         type:String,
         required:true,
-        enum:["Acepted","Pending","Completed","Failed"],
+        enum:["Active","Pending","Completed","Failed"],
     }
 
 },{timestamps:true})

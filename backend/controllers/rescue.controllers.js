@@ -41,11 +41,6 @@ export const createRescueRequest = async (req, res) => {
     return res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-
-
-
-
-
 export const acceptRescueRequest = async (req, res) => {
   try {
     const rescuer = req.user;
@@ -102,6 +97,107 @@ export const acceptRescueRequest = async (req, res) => {
     return res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+export const getAllRequestsOfUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+
+    const userReports = await Report.find({ reporter: userId })
+      .populate("rescuerId", "name email")
+      .populate("reporter", "name email");
+
+    if (!userReports || userReports.length === 0) {
+      return res.status(404).json({ message: "No rescue requests found for this user." });
+    }
+
+    let data = {
+      userReports,
+      number:userReports.length 
+    }
+
+    return res.status(200).json({
+      message: "Fetched all requests created by the user.",
+      data: userReports,
+    });
+  } catch (error) {
+    console.error("Error fetching user reports:", error);
+    return res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+export const getActiveRequest = async (req,res)=>{
+
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+
+    const userReports = await Report.find({ reporter: userId, $and , status: "Active"})
+      .populate("rescuerId", "name email")
+      .populate("reporter", "name email");
+
+    if (!userReports || userReports.length === 0) {
+      return res.status(404).json({ message: "No rescue requests found for this user." });
+    }
+
+    let data = {
+      userReports,
+      number:userReports.length 
+
+    }
+    return res.status(200).json({
+      message: "Fetched all requests created by the user.",
+      data
+      
+    });
+  } catch (error) {
+    console.error("Error fetching user reports:", error);
+    return res.status(500).json({ message: "Server error", error: error.message });
+  }
+
+}
+
+export const getCompletedRequest = async (req,res)=>{
+
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required." });
+    }
+
+    const userReports = await Report.find({ reporter: userId, $and , status: "Active"})
+      .populate("rescuerId", "name email")
+      .populate("reporter", "name email");
+
+    if (!userReports || userReports.length === 0) {
+      return res.status(404).json({ message: "No rescue requests found for this user." });
+    }
+
+    let data = {
+      userReports,
+      number:userReports.length 
+
+    }
+    return res.status(200).json({
+      message: "Fetched all requests created by the user.",
+      data
+      
+    });
+  } catch (error) {
+    console.error("Error fetching user reports:", error);
+    return res.status(500).json({ message: "Server error", error: error.message });
+  }
+
+}
+
+
+
 
 
 
