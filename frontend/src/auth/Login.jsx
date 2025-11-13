@@ -1,14 +1,22 @@
 import { useState } from "react";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "@/store/slices/authSlice";
 import { toast } from "sonner";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { loginUser } from "@/store/slices/authSlice";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Loader2 } from "lucide-react";
+import { path } from "../../serverPath";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -18,21 +26,51 @@ export default function Login() {
   const [userType, setUserType] = useState("User");
   const [isLoading, setIsLoading] = useState(false);
 
+  // backend base path
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+    const loadingToast = toast.loading("Logging you in...");
+  
     try {
-      const result = await dispatch(loginUser({ email, password, userType })).unwrap();
-      navigate(`/dashboard/${result.user.role}`);
-      
+      const response = await axios.post(
+        `${path}/api/auth/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+  
+      console.log("Login successful:", response.data);
+  
+      const userData = response.data?.user; // ✅ Correct field name
+  
+      if (!userData) {
+        throw new Error("Invalid server response — missing user data");
+      }
+  
+      toast.success("Login successful!", {
+        id: loadingToast,
+        description: "Redirecting to your dashboard...",
+      });
+  
+      // ✅ Save to Redux store
+      dispatch(loginUser(userData));
+  
+      // ✅ Redirect using user role
+      navigate(`/dashboard/${userData.role?.toLowerCase() || userType.toLowerCase()}`);
+  
     } catch (error) {
       console.error("Login failed:", error);
-      alert(error || "Login failed. Try: admin@street.com / projecthobhai123");
+      const msg =
+        error.response?.data?.message ||
+        error.message ||
+        "Invalid credentials or server error!";
+      toast.error(msg, { id: loadingToast });
     } finally {
       setIsLoading(false);
     }
   };
+  
+  
 
   return (
     <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
@@ -43,16 +81,17 @@ export default function Login() {
           </div>
           Street साथी
         </a>
-        
+
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-xl">Welcome back</CardTitle>
             <CardDescription>
               Select your Account type and login to your account
             </CardDescription>
-            <ToggleGroup 
-              type="single" 
-              variant="outline" 
+
+            <ToggleGroup
+              type="single"
+              variant="outline"
               className="block ml-auto mr-auto my-3"
               value={userType}
               onValueChange={(value) => value && setUserType(value)}
@@ -65,6 +104,7 @@ export default function Login() {
               </ToggleGroupItem>
             </ToggleGroup>
           </CardHeader>
+
           <CardContent>
             <form onSubmit={handleSubmit}>
               <FieldGroup>
@@ -80,16 +120,20 @@ export default function Login() {
                     disabled={isLoading}
                   />
                 </Field>
+
                 <Field>
                   <div className="flex items-center justify-between">
                     <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <a href="#" className="text-sm text-muted-foreground hover:text-primary">
+                    <a
+                      href="#"
+                      className="text-sm text-muted-foreground hover:text-primary"
+                    >
                       Forgot password?
                     </a>
                   </div>
-                  <Input 
-                    id="password" 
-                    type="password" 
+                  <Input
+                    id="password"
+                    type="password"
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -97,14 +141,21 @@ export default function Login() {
                     disabled={isLoading}
                   />
                 </Field>
+
                 <Field>
                   <Button type="submit" disabled={isLoading} className="w-full">
-                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {isLoading && (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    )}
                     {isLoading ? "Signing in..." : "Login"}
                   </Button>
+
                   <div className="text-center text-sm text-muted-foreground mt-4">
                     Don't have an account?{" "}
-                    <a href={`/register${userType}`} className="text-primary hover:underline">
+                    <a
+                      href={`/register${userType}`}
+                      className="text-primary hover:underline"
+                    >
                       Sign up as {userType}
                     </a>
                   </div>
@@ -113,7 +164,7 @@ export default function Login() {
             </form>
           </CardContent>
         </Card>
-        
+
         <div className="text-center text-xs text-muted-foreground">
           By continuing, you agree to our Terms of Service and Privacy Policy
         </div>

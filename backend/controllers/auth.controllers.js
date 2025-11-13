@@ -27,33 +27,49 @@ const hashpass = await  bcrypt.hash(password,12)
         return res.status(201).json({message:"Otp sent",otp})
 }
 
-checkOtp = async (req,res)=>{
-    const {email,otp} = req.body ; 
-
-    if(!otp){
-        return res.status(400).json({message:"Otp is required "})
+ checkOtp = async (req, res) => {
+    try {
+      let { email, otp } = req.body;
+  
+      
+      otp = parseInt(otp);
+  
+      if (!email || !otp) {
+        return res.status(400).json({ message: "Email and OTP are required." });
+      }
+  
+     
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+  
+      console.log("Entered OTP:", otp, typeof otp);
+      console.log("User OTP:", user.otp, typeof user.otp);
+  
+     
+      if (Number(otp) !== Number(user.otp)) {
+        
+        return res.status(400).json({
+          message: "Incorrect OTP. Please try again or request a new one.",
+        });
+      }
+  
+    
+  
+      return res.status(200).json({
+        message: "OTP verified successfully. User registered successfully.",
+      });
+  
+    } catch (err) {
+      console.error("Error verifying OTP:", err);
+      return res.status(500).json({ message: "Server error", error: err.message });
     }
-
-    const user = await User.findOne({email});
-    console.log(otp,typeof(otp))
-    console.log(user.otp,typeof(user.otp))
+  };
+  
 
 
-    let count = 1; 
 
-    if(Number(otp)!==user.otp){
-        if(count<3){
-            return res.status(400).json({message:`Incorrect Otp ${count} chance remaining   ...`})
-
-            
-        }
-        return res.status(400).json({message:"Incorrect Otp pleaseregister again  ..."})
-
-    }
-
-    return res.status(200).json({message:"User registered sucessfully ..."})
-
-}
 login = async (req,res)=>{
 
     const {email,password} = req.body ; 
@@ -90,36 +106,44 @@ login = async (req,res)=>{
 
     res.cookie("token",token);
 
-    return res.status(200).json({message:"Login sucessfull .."})
+    return res.status(200).json({message:"Login sucessfull ..",user:payload})
 
 
 }
 
-rescuerRegister = async (req,res)=>{
-    const {name,email,phone,password,location} = req.body ; 
-
-    const pancarDocs = req.files.file ; 
-
-
-
-    if(!name || !email || !phone || !password){
-        return res.status(400).json({
-            message:"All fields are required ... "
-        })
+rescuerRegister = async (req, res) => {
+    const { name, email, phone, password, lang, lat } = req.body;
+  
+    if (!name || !email || !phone || !password) {
+      return res.status(400).json({ message: "All fields are required" });
     }
-
-    if(!pancarDocs){
-        return res.status(400).json({message:"Upload a file too ..."})
+  
+    if (!lat || !lang) {
+      return res.status(400).json({ message: "Location is required" });
     }
-
-    const hashpass = await bcrypt.hash(password,12);
-
-    const rescuer = await Rescuer.create({
-        name,email,phone,password:hashpass,role:"rescuer",location,documents,verified:false
-    })
-
-    return res.status(201).json({message:"You are registered but not verified you will be able to login when you wil be verified . Your profile will be shortly validate by admin and you will be notified very soon via email."})
-}
+  
+    try {
+      const hashpass = await bcrypt.hash(password, 12);
+  
+      const rescuer = await Rescuer.create({
+        name,
+        email,
+        phone,
+        password: hashpass,
+        role: "rescuer",
+        location: { lang, lat },
+        verified: false
+      });
+  
+      return res.status(201).json({
+        message: "You are registered but not verified. Admin will validate your profile and notify you soon via email."
+      });
+    } catch (err) {
+      console.error("Rescuer registration error:", err);
+      return res.status(500).json({ message: "Server error. Try again later." });
+    }
+  };
+  
 
 rescuerLogin = async (req,res)=>{
 
@@ -161,7 +185,7 @@ rescuerLogin = async (req,res)=>{
 
     res.cookie(token,token);
 
-    return res.status(200).json({message:"Login sucessfull .."})
+    return res.status(200).json({message:"Login sucessfull ..",payload})
 
 
 }

@@ -22,10 +22,7 @@ const rescuerSchema = new mongoose.Schema({
         required:true,
         default:"rescuer"
     },
-    documents:{
-        type:String,
-        required:true
-    },
+   
     location:{
       long:{
         type:String

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
+import axios from "axios";
 import {
   Card,
   CardContent,
@@ -13,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { path } from "../../serverPath";
+
 
 export function UserSignupForm({ className, ...props }) {
   const dispatch = useDispatch();
@@ -36,6 +39,7 @@ export function UserSignupForm({ className, ...props }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 🔹 Basic validation
     if (
       !formData.name ||
       !formData.email ||
@@ -52,39 +56,45 @@ export function UserSignupForm({ className, ...props }) {
     }
 
     if (formData.password.length < 8) {
-      toast.error("Password must be at least 8 characters");
+      toast.error("Password must be at least 8 characters long");
       return;
     }
 
     setIsSubmitting(true);
     const loadingToast = toast.loading("Creating your account...");
 
-    setTimeout(() => {
-      const userData = {
-        ...formData,
+    try {
+      // 🔹 Call backend API
+      const res = await axios.post(`${path}/api/auth/register`, {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
         role: "user",
-        id: Date.now(),
-        createdAt: new Date().toISOString(),
-      };
-      console.log("User registered:", userData);
+      },{withCredentials:true});
+
+      // 🔹 Handle success
+      toast.success("Account created successfully! Redirecting...", {
+        id: loadingToast,
+        description: "Please check your email for OTP verification.",
+        duration: 3000,
+      });
 
       localStorage.setItem("pendingVerificationEmail", formData.email);
-
-      toast.success(
-        "Account created successfully! Redirecting to Verification.",
-        {
-          id: loadingToast,
-          description: "Please check your email for OTP.",
-          duration: 3000,
-        }
-      );
 
       setTimeout(() => {
         navigate("/verify-otp");
       }, 2000);
-
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast.error(
+        error.response?.data?.message ||
+          "Failed to create account. Please try again.",
+        { id: loadingToast }
+      );
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -99,6 +109,7 @@ export function UserSignupForm({ className, ...props }) {
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="space-y-4">
+              {/* Full Name */}
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <Input
@@ -111,6 +122,7 @@ export function UserSignupForm({ className, ...props }) {
                 />
               </div>
 
+              {/* Email */}
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
                 <Input
@@ -123,6 +135,7 @@ export function UserSignupForm({ className, ...props }) {
                 />
               </div>
 
+              {/* Phone */}
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone Number</Label>
                 <Input
@@ -135,6 +148,7 @@ export function UserSignupForm({ className, ...props }) {
                 />
               </div>
 
+              {/* Password */}
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <Input
@@ -150,6 +164,7 @@ export function UserSignupForm({ className, ...props }) {
                 </p>
               </div>
 
+              {/* Confirm Password */}
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirm Password</Label>
                 <Input
@@ -162,6 +177,7 @@ export function UserSignupForm({ className, ...props }) {
                 />
               </div>
 
+              {/* Submit Button */}
               <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting && (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -180,6 +196,7 @@ export function UserSignupForm({ className, ...props }) {
         </CardContent>
       </Card>
 
+      {/* Footer */}
       <div className="px-6 text-center text-sm text-muted-foreground">
         By clicking continue, you agree to our{" "}
         <a href="#" className="hover:underline">
