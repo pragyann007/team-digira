@@ -81,7 +81,8 @@ login = async (req,res)=>{
         name:getUser.name,
         email:getUser.email,
         password:getUser.password,
-        role:getUser.role
+        role:getUser.role,
+        id:getUser._id
     }
     const token = jwt.sign(payload,key,{
         expiresIn:"7d"

@@ -26,7 +26,14 @@ const userSchema = new mongoose.Schema({
     otp:{
         type:Number,
         required:true
-    }
+    },
+    requests: [
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Report"
+        
+        }
+    ]
 },{timestamps:true})
 
 export const User = await mongoose.model("User",userSchema);

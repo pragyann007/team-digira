@@ -11,7 +11,7 @@ const rescueReportSchema = new mongoose.Schema({
          ref:"Rescuer"
         
     },
-    anmialType:{
+    animalType:{
         type:String,
         required:true
     },
@@ -39,7 +39,7 @@ const rescueReportSchema = new mongoose.Schema({
     status:{
         type:String,
         required:true,
-        enum:["Acepted","In Progress","Completed","Failed"],
+        enum:["Acepted","Pending","Completed","Failed"],
     }
 
 },{timestamps:true})
