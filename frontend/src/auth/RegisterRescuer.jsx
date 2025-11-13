@@ -2,7 +2,7 @@ import React from 'react'
 
 const RegisterRescuer = () => {
   return (
-    <div>RegisterRescuer</div>
+    <h1>Hello World</h1>
   )
 }
 
