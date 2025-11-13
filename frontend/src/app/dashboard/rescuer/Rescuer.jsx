@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import "leaflet/dist/leaflet.css";
+import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
+import L from "leaflet";
 import {
   Card,
   CardContent,
@@ -45,6 +48,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+});
+
+const getCustomIcon = (color) => {
+  return L.divIcon({
+    className: "custom-marker",
+    html: `<div style="background-color: ${color}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3)"></div>`,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+  });
+};
 
 const mockStats = {
   activeMissions: 2,
@@ -108,6 +128,36 @@ const mockAvailableRequests = [
   },
 ];
 
+const mapData = {
+  rescuerLocation: [27.7172, 85.324], // Kathmandu
+  requests: [
+    {
+      id: "3213164656",
+      type: "Death of Animal",
+      victim: "Amrit Sharma Gautam",
+      location: "Sano Thimi, Bhaktapur",
+      priority: "medium",
+      position: [27.6794, 85.3807],
+    },
+    {
+      id: "154542555545",
+      type: "Accident of Dog",
+      victim: "Sneha Pandey",
+      location: "Thapatali, Kathmandu",
+      priority: "high",
+      position: [27.6945, 85.3186],
+    },
+    {
+      id: "9876543210",
+      type: "Shelter required for Animal",
+      victim: "Vikram Joshi",
+      location: "Maitidevi, Kathmandu",
+      priority: "urgent",
+      position: [27.7083, 85.3222],
+    },
+  ],
+};
+
 export default function Rescuer() {
   const { user, logout } = useAuth();
   const auth = useSelector((state) => state.auth);
@@ -116,8 +166,6 @@ export default function Rescuer() {
     mockAvailableRequests
   );
   const [loading, setLoading] = useState(false);
-  //   const [selectedMission, setSelectedMission] = useState(null);
-  //   const [showMissionDetails, setShowMissionDetails] = useState(false);
 
   const handleUpdateStatus = (missionId, newStatus) => {
     const missionName =
@@ -241,7 +289,6 @@ export default function Rescuer() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
@@ -268,7 +315,6 @@ export default function Rescuer() {
         </div>
       </div>
 
-      {/* Stats Cards */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -551,19 +597,75 @@ export default function Rescuer() {
           <CardDescription>Your location and nearby requests</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="relative bg-muted rounded-lg h-64 sm:h-80 flex items-center justify-center">
-            <div className="text-center">
-              <div className="bg-primary/10 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <Navigation className="h-8 w-8 text-primary" />
-              </div>
-              <p className="text-muted-foreground">
-                Interactive map will be integrated here
-              </p>
-              <p className="text-xs text-muted-foreground mt-2">
-                Shows your location and nearby victims
-              </p>
-            </div>
-          </div>
+          <MapContainer
+            center={mapData.rescuerLocation}
+            zoom={13}
+            className="h-64 sm:h-80 w-full rounded-lg z-0"
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+
+            {/* Rescuer location */}
+            <Circle
+              center={mapData.rescuerLocation}
+              radius={100}
+              pathOptions={{
+                color: "#3b82f6",
+                fillColor: "#3b82f6",
+                fillOpacity: 0.2,
+              }}
+            />
+            <Marker
+              position={mapData.rescuerLocation}
+              icon={getCustomIcon("#3b82f6")}
+            >
+              <Popup>
+                <div className="text-sm">
+                  <strong>You (Rescuer)</strong>
+                  <br />
+                  Current Location
+                  <br />
+                  <small>Kathmandu</small>
+                </div>
+              </Popup>
+            </Marker>
+
+            {/* Request markers */}
+            {mapData.requests.map((request) => (
+              <Marker
+                key={request.id}
+                position={request.position}
+                icon={getCustomIcon(
+                  request.priority === "urgent"
+                    ? "#ef4444"
+                    : request.priority === "high"
+                    ? "#f97316"
+                    : "#eab308"
+                )}
+              >
+                <Popup>
+                  <div className="text-sm">
+                    <strong>{request.type}</strong>
+                    <br />
+                    {request.victim}
+                    <br />
+                    <small>{request.location}</small>
+                    <br />
+                    <Badge
+                      className={`${getPriorityColor(
+                        request.priority
+                      )} text-white mt-1 text-xs`}
+                    >
+                      {request.priority}
+                    </Badge>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+
           <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 bg-blue-500 rounded-full"></div>

@@ -15,7 +15,7 @@ export default function Chat() {
         </CardHeader>
         <CardContent>
           <div className="text-center py-8 text-muted-foreground">
-            Chat interface will be integrated here
+            Chat interface Coming Soon!
           </div>
         </CardContent>
       </Card>

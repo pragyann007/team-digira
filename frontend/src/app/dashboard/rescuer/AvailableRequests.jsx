@@ -21,7 +21,7 @@ export default function AvailableRequests() {
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-primary" />
                 <div>
-                  <p className="font-medium">Clothing - Lajpat Nagar</p>
+                  <p className="font-medium">Cat Rescue - Gongabu</p>
                   <p className="text-sm text-muted-foreground">2.3 km away</p>
                 </div>
               </div>
@@ -34,7 +34,7 @@ export default function AvailableRequests() {
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-primary" />
                 <div>
-                  <p className="font-medium">Medical Aid - Paharganj</p>
+                  <p className="font-medium">Death of Stray Dog - Paknajol</p>
                   <p className="text-sm text-muted-foreground">1.8 km away</p>
                 </div>
               </div>

@@ -17,15 +17,15 @@ export default function ActiveMissions() {
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div>
-                <p className="font-medium">Medical Aid - Connaught Place</p>
-                <p className="text-sm text-muted-foreground">Victim: Rahul Kumar</p>
+                <p className="font-medium">Dog Rescue - Sorakhutte</p>
+                <p className="text-sm text-muted-foreground">Victim Reporter: Rahul Kumar</p>
               </div>
               <Badge className="bg-purple-100 text-purple-800">In Progress</Badge>
             </div>
             <div className="flex items-center justify-between p-4 border rounded-lg">
               <div>
-                <p className="font-medium">Food Distribution - Karol Bagh</p>
-                <p className="text-sm text-muted-foreground">Victim: Geeta Sharma</p>
+                <p className="font-medium">Accident of Cow - Samakhushi</p>
+                <p className="text-sm text-muted-foreground">Victim Reporter: Geeta Sharma</p>
               </div>
               <Badge className="bg-blue-100 text-blue-800">Accepted</Badge>
             </div>
