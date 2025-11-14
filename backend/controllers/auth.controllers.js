@@ -145,49 +145,57 @@ rescuerRegister = async (req, res) => {
   };
   
 
-rescuerLogin = async (req,res)=>{
-
-    const {email,password} = req.body ; 
-    if( !email || !password){
+ rescuerLogin = async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      console.log("Body received:", req.body);
+  
+      if (!email || !password) {
+        return res.status(400).json({ message: "All fields are required." });
+      }
+  
+      const rescuer = await Rescuer.findOne({ email });
+      if (!rescuer) {
         return res.status(400).json({
-            message:"All fields are required ... "
-        })
-    }
-
-    const getRescuer = await Rescuer.findOne({email})
-
-    if(!getRescuer){
-        return res.status(400).json({message:"Rescuer not registered please do register ."})
-    }
-
- if (!getRescuer.verified){
-    return res.status(400).json({message:"This account is not verified please keep a patience you will only be able to login after the admin verifies."})
- }
-    const checkPass = await bcrypt.compare(password,getRescuer.password);
-
-    if(!checkPass){
+          message: "Rescuer not registered. Please register first.",
+        });
+      }
+  
+      if (!rescuer.verified) {
         return res.status(400).json({
-            message:"Invalid Password .."
-        })
+          message:
+            "Your account is not verified yet. Please wait for admin approval.",
+        });
+      }
+  
+      const isPasswordValid = await bcrypt.compare(password, rescuer.password);
+      if (!isPasswordValid) {
+        return res.status(400).json({ message: "Invalid password." });
+      }
+  
+      const payload = {
+        id: rescuer._id,
+        name: rescuer.name,
+        email: rescuer.email,
+        role: rescuer.role,
+        verified: rescuer.verified,
+      };
+  
+      const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" });
+  
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+      });
+  
+      return res.status(200).json({
+        message: "Login successful!",
+        user: payload,
+      });
+    } catch (error) {
+      console.error("Error during rescuer login:", error);
+      return res.status(500).json({ message: "Internal server error." });
     }
-
-    const key = process.env.JWT_SECRET ; 
-    const payload = {
-        name:getRescuer.name,
-        email:getRescuer.email,
-        password:getRescuer.password,
-        role:getRescuer.role,
-        verified:getRescuer.verified
-    }
-    const token = jwt.sign(payload,key,{
-        expiresIn:"7d"
-    })
-
-    res.cookie(token,token);
-
-    return res.status(200).json({message:"Login sucessfull ..",payload})
-
-
-}
-
+  };
 }

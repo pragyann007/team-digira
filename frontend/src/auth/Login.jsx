@@ -27,35 +27,39 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   // backend base path
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const loadingToast = toast.loading("Logging you in...");
   
     try {
+      // Select API based on user type
+      const endpoint =
+        userType === "Rescuer"
+          ? `${path}/api/auth/login-rescuer`
+          : `${path}/api/auth/login`;
+  
       const response = await axios.post(
-        `${path}/api/auth/login`,
+        endpoint,
         { email, password },
         { withCredentials: true }
       );
   
       console.log("Login successful:", response.data);
   
-      const userData = response.data?.user; // ✅ Correct field name
-  
-      if (!userData) {
-        throw new Error("Invalid server response — missing user data");
-      }
+      const userData = response.data?.user;
+      if (!userData) throw new Error("Invalid server response — missing user data");
   
       toast.success("Login successful!", {
         id: loadingToast,
         description: "Redirecting to your dashboard...",
       });
   
-      // ✅ Save to Redux store
+      // Save to Redux
       dispatch(loginUser(userData));
   
-      // ✅ Redirect using user role
+      // Redirect
       navigate(`/dashboard/${userData.role?.toLowerCase() || userType.toLowerCase()}`);
   
     } catch (error) {
@@ -69,6 +73,7 @@ export default function Login() {
       setIsLoading(false);
     }
   };
+  
   
   
 
